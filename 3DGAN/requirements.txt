@@ -7,5 +7,5 @@ scikit-image
 tensorboardX
 torchvision
 tqdm
-
+PyYAML
 
