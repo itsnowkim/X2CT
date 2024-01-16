@@ -11,6 +11,7 @@ from __future__ import division
 from easydict import EasyDict
 import os
 import numpy as np
+import yaml
 
 __C = EasyDict()
 cfg = __C
@@ -230,7 +231,7 @@ def cfg_from_yaml(filename):
   '''
   import yaml
   with open(filename, 'r') as f:
-    yaml_cfg = EasyDict(yaml.load(f))
+    yaml_cfg = EasyDict(yaml.load(f, Loader=yaml.FullLoader))
   _merge_a_into_b(yaml_cfg, __C)
 
 def print_easy_dict(easy_dict):
@@ -299,10 +300,3 @@ def _merge_a_into_b(a, b):
         raise
     else:
       b[k] = v
-
-
-
-
-
-
-
