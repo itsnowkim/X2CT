@@ -5,7 +5,8 @@ numpy
 opencv-python
 scikit-image
 tensorboardX
+tensorboard
 torchvision
 tqdm
 PyYAML
-
+SimpleITK
