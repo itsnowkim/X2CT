@@ -149,7 +149,8 @@ __C.DATA_AUG.resize_size = 289
 __C.TD_GAN = EasyDict()
 # identity loss
 __C.TD_GAN.idt_lambda = 10.
-__C.TD_GAN.idt_reduction = 'elementwise_mean'
+# __C.TD_GAN.idt_reduction = 'elementwise_mean'
+__C.TD_GAN.idt_reduction = 'mean'
 __C.TD_GAN.idt_weight = 0.
 __C.TD_GAN.idt_weight_range = [0., 1.]
 __C.TD_GAN.restruction_loss = 'l1'
@@ -202,7 +203,8 @@ __C.CTGAN.CTOrder_Xray1 = [0, 1, 3, 2, 4]
 __C.CTGAN.CTOrder_Xray2 = [0, 1, 4, 2, 3]
 # identity loss'weight
 __C.CTGAN.idt_lambda = 1.0
-__C.CTGAN.idt_reduction = 'elementwise_mean'
+# __C.CTGAN.idt_reduction = 'elementwise_mean'
+__C.CTGAN.idt_reduction = 'mean'
 __C.CTGAN.idt_weight = 0.
 __C.CTGAN.idt_weight_range = [0., 1.]
 # 'l1' or 'mse'

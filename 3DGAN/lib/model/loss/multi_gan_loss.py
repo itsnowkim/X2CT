@@ -103,7 +103,7 @@ class RestructionLoss(nn.Module):
   '''
   reduction: 'elementwise_mean' or 'none'
   '''
-  def __init__(self, distance='l1', reduction='elementwise_mean'):
+  def __init__(self, distance='l1', reduction='mean'):
     super(RestructionLoss, self).__init__()
     if distance == 'l1':
       self.loss = nn.L1Loss(reduction=reduction)

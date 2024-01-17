@@ -315,6 +315,7 @@ class CTGAN(Base_Model):
     self.loss_G, D_fake_pred = self.backward_G_basic(self.netD, fake_input, self.criterionGAN, self.opt.gan_lambda)
 
     # identity loss
+    # L1 loss, fake input, real input 두 개 비교하는 loss.
     if idt_lambda > 0:
       # focus area weight assignment
       if self.opt.idt_reduction == 'none' and self.opt.idt_weight > 0:
@@ -330,10 +331,12 @@ class CTGAN(Base_Model):
     D_real_pred = self.netD(real_input)
 
     # feature metric loss
+    # L1 loss, 3d prediction 비교하는 loss
     if fea_m_lambda > 0:
       self.loss_fea_m = self.feature_metric_loss(D_fake_pred, D_real_pred, loss_weight=fea_m_lambda, num_D=self.opt.num_D, feat_weights=4.0 / (self.opt.n_layers_D + 1), criterionFea=self.criterionFea)
 
     # map loss
+    # 세 direction 에 대한 loss.
     if map_m_lambda > 0:
       self.loss_map_m = 0.
       for direction in self.multi_view:

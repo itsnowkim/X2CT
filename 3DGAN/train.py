@@ -135,11 +135,8 @@ if __name__ == '__main__':
   # train
   for epoch in range(opt.epoch_count, opt.niter + opt.niter_decay + 1):
     epoch_start_time = time.time()
-    iter_data_time = time.time()
 
     for epoch_i, data in enumerate(dataloader):
-      iter_start_time = time.time()
-
       total_steps += 1
 
       gan_model.set_input(data)
@@ -163,8 +160,13 @@ if __name__ == '__main__':
 
       # loss
       loss_dict = gan_model.get_current_losses()
+      # import pdb; pdb.set_trace();
       # visualizer.add_scalars('Train_Loss', loss_dict, step=total_steps)
       total_loss = visualizer.add_total_scalar('Total loss', loss_dict, step=total_steps)
+      # loss key 값 별로 scalar 추가하기
+      for key in loss_dict.keys():
+        visualizer.add_scalar(f'{key} loss', loss_dict[key], step=total_steps)
+
       # visualizer.add_average_scalers('Epoch Loss', loss_dict, step=total_steps, write=False)
       # visualizer.add_average_scalar('Epoch total Loss', total_loss)
 
@@ -208,8 +210,15 @@ if __name__ == '__main__':
             (epoch, total_steps))
       gan_model.save_networks(epoch, total_steps)
 
-    print('End of epoch %d / %d \t Time Taken: %d sec' %
-          (epoch, opt.niter + opt.niter_decay, time.time() - epoch_start_time))
+    end_time = time.time()
+    elapsed_time = end_time - epoch_start_time
+    remaining_epochs = opt.niter + opt.niter_decay - epoch
+    estimated_time = (elapsed_time / epoch) * remaining_epochs
+
+    hours, rem = divmod(estimated_time, 3600)
+    minutes, seconds = divmod(rem, 60)
+
+    print(f"End of epoch {epoch} / {opt.niter + opt.niter_decay} \t ETA: {int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}")
     ##########
     # For speed
     ##########
@@ -220,7 +229,8 @@ if __name__ == '__main__':
     # visualizer.add_average_scalers('Epoch Metrics', None, step=epoch, write=True)
 
     # visualizer.add_scalar('Learning rate', gan_model.optimizers[0].param_groups[0]['lr'], epoch)
-    gan_model.update_learning_rate(epoch)
+    # gan_model.update_learning_rate(epoch)
+    gan_model.update_learning_rate()
 
     # # Test
     # if args.valid_dataset is not None:
