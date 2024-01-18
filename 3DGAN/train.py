@@ -230,7 +230,7 @@ if __name__ == '__main__':
 
     # visualizer.add_scalar('Learning rate', gan_model.optimizers[0].param_groups[0]['lr'], epoch)
     # gan_model.update_learning_rate(epoch)
-    gan_model.update_learning_rate()
+    gan_model.update_learning_rate(epoch)
 
     # # Test
     # if args.valid_dataset is not None:
