@@ -1,5 +1,6 @@
 import h5py
 import cv2
+import argparse
 import numpy as np
 
 # h5 파일 load 하기
@@ -24,7 +25,12 @@ def visualize_images(ct_data, x_ray1, x_ray2):
     for i in range(len(ct_data)):
         ct_image = ct_data[i]  # 예제로 첫 번째 슬라이스 사용
         ct_image_normalized = normalize_image(ct_image)
-        cv2.imshow('CT Image', ct_image_normalized)
+        if args.mode == "v":
+            cv2.imshow('CT Image', ct_image_normalized)
+            cv2.waitKey(0)  # 창이 닫히지 않도록 기다림
+            cv2.destroyAllWindows()  # 모든 OpenCV 창 닫기
+        elif args.mode == "s":
+            cv2.imwrite(f"ct_{i}.png", ct_image_normalized)
 
     # X-ray 이미지 시각화
     x_ray1_normalized = normalize_image(x_ray1)
@@ -36,6 +42,11 @@ def visualize_images(ct_data, x_ray1, x_ray2):
     cv2.destroyAllWindows()  # 모든 OpenCV 창 닫기
 
 if __name__ == "__main__":
+    # argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-m", "--mode", required=True, help="v : visual mode / s: save mode\n")
+    args=parser.parse_args()
+
     # h5 파일 경로
     filename = "ct_xray_data.h5"
     ct_data, x_ray1, x_ray2 = load_file(filename)
