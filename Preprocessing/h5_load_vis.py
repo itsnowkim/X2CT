@@ -30,13 +30,15 @@ def visualize_images(ct_data, x_ray1, x_ray2):
             cv2.waitKey(0)  # 창이 닫히지 않도록 기다림
             cv2.destroyAllWindows()  # 모든 OpenCV 창 닫기
         elif args.mode == "s":
-            cv2.imwrite(f"ct_{i}.png", ct_image_normalized)
+            cv2.imwrite(f"output/ct_{i}.png", ct_image_normalized)
 
     # X-ray 이미지 시각화
     x_ray1_normalized = normalize_image(x_ray1)
     x_ray2_normalized = normalize_image(x_ray2)
     cv2.imshow('X-ray 1', x_ray1_normalized)
     cv2.imshow('X-ray 2', x_ray2_normalized)
+    cv2.imwrite(f"output/xray_front.png", x_ray1_normalized)
+    cv2.imwrite(f"output/xray_side.png", x_ray2_normalized)
 
     cv2.waitKey(0)  # 창이 닫히지 않도록 기다림
     cv2.destroyAllWindows()  # 모든 OpenCV 창 닫기
