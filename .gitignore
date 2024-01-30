@@ -22,4 +22,6 @@ venv.bak/
 */multiview
 */save_models
 3DGAN/data/LIDC-HDF5-256
+3DGAN/data/custom-dataset
+3DGAN/data/dataset
 /Preprocessing/output/*.png

@@ -26,6 +26,7 @@ def load_images_from_folder(folder):
         if img is None:
             continue
 
+        # 이미지 크기가 256x256이 아닐 경우 리사이징
         resized_img = resize_image(img)
         
         if "ct" in filename:
@@ -57,6 +58,6 @@ def process_folders(parent_folder, output_dir):
         print(f"{folder}의 이미지들이 {h5_filename} 파일로 저장되었습니다.")
 
 if __name__ == "__main__":
-    parent_folder = 'output'
-    output_dir = 'h5_output'
+    parent_folder = '../3DGAN/data/custom-dataset'
+    output_dir = '../3DGAN/data/dataset'
     process_folders(parent_folder, output_dir)
