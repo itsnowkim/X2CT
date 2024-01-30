@@ -10,7 +10,7 @@ def resize_image(image, size=(256, 256)):
 
 def extract_number(file_name):
     # 파일명에서 숫자를 추출하는 함수
-    match = re.search(r'(\d+)', file_name)
+    match = re.search(r'(\d+)', file_name.split('-')[-1])
     return int(match.group()) if match else float('inf')
 
 def load_images_from_folder(folder):
@@ -26,10 +26,10 @@ def load_images_from_folder(folder):
         if img is None:
             continue
 
-        # 이미지 크기가 256x256이 아닐 경우 리사이징
+        # 이미지 크기가 256x256이 아닐 경우 리사이징, 리사이징 결과를 저장
         resized_img = resize_image(img)
         
-        if "ct" in filename:
+        if "ct" in filename or "CT" in filename:
             images["ct"].append(resized_img)
         elif "front" in filename:
             images["xray1"] = resized_img

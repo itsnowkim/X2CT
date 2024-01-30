@@ -50,7 +50,8 @@ if __name__ == "__main__":
     args=parser.parse_args()
 
     # h5 파일 경로
-    filename = "ct_xray_data.h5"
+    # filename = "ct_xray_data.h5"
+    filename = "../3DGAN/data/dataset/220823-00183403/ct_xray_data.h5"
     ct_data, x_ray1, x_ray2 = load_file(filename)
 
     # 시각화
