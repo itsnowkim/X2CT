@@ -104,6 +104,7 @@ class Xray3DVolumes_2DModel(nn.Module):
       nn.ConvTranspose2d(in_channels=256, out_channels=256, kernel_size=4, stride=2, padding=1, groups=256, bias=False)
     ])
     # 128
+    # out channel 을 128 말고 256 으로 유지한다면?
     self.part9 = nn.Sequential(*[
       Basic_layer(kernel_size=1, padding_size=0, stride=1, in_channels=256, out_channels=256, use_bias=False),
       nn.Conv2d(in_channels=256, out_channels=128, kernel_size=1, stride=1, padding=0, bias=False)
